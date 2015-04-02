@@ -5,8 +5,8 @@ class Rule {
 
 private:
 
-	std::string		_left;
-	std::string		_right;
+	std::string				_left;
+	std::string				_right;
 
 public:
 
@@ -17,16 +17,17 @@ public:
 	virtual ~Rule(void) {}
 
 	// member function
-	std::string const string(void) const;
+	std::string const 		toString(void) const;
 
 	// accessors
-	std::string const & getLeft(void) const { return _left; }
-	std::string const & getRight(void) const { return _right; }
-	void setLeft(std::string const & left) { _left = left; }
-	void setRight(std::string const & right) { _right = right; }
+	std::string const & 	getLeft(void) const { return _left; }
+	std::string const & 	getRight(void) const { return _right; }
 
-	Facts & resolve(Facts & facts);
-	
+	void 					setLeft(std::string const & left) { _left = left; }
+	void 					setRight(std::string const & right) { _right = right; }
+
+	Facts 					solve(Facts facts);
+
 	//operator overload
 	Rule & operator=(Rule const & rule) {
 		setLeft(rule.getLeft());
@@ -35,6 +36,7 @@ public:
 	}
 };
 // stream overload
-std::ostream & operator<<(std::ostream & o, Rule const & rule);
+std::ostream & 	operator<<(std::ostream & o, Rule const & rule);
+bool			operator==(Rule const lhs, Rule const rhs);
 
 #endif

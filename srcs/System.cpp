@@ -43,6 +43,89 @@ std::ostream 			& operator<<(std::ostream & out, System const & rhs){
 	return out;
 }
 
+void					System::updateState(char fact, eFact newState) {
+	Facts 				facts = getFacts();
+	eFact				oldState = facts[fact];
+
+	switch (oldState) {
+		case faux :
+			switch (newState) {
+				case vrai :
+					throw UpdateStateError(fact, oldState, newState);
+					break ;
+				default :
+					break ;
+			}
+			break ;
+		case vrai :
+			switch (newState) {
+				case faux :
+					throw UpdateStateError(fact, oldState, newState);
+					break ;
+				default :
+					break ;
+			}
+			break ;
+		default :
+			facts[fact] = newState;
+			break ;
+	}
+
+	setFacts(facts);
+
+	return ;
+}
+
+bool					System::isFact(char fact) {
+	Facts::const_iterator	fit  = getFacts().begin();
+	Facts::const_iterator	fite = getFacts().end();
+
+	for (; fit != fite; fit++) {
+		if (fact == fit->first)
+			return true;
+	}
+
+	return false ;
+}
+
+eFact					System::getState(char fact) {
+	Facts::const_iterator	fit  = getFacts().begin();
+	Facts::const_iterator	fite = getFacts().end();
+
+	for (; fit != fite; fit++) {
+		if (fact == fit->first)
+			return fit->second;
+	}
+
+	return unsolved;
+}
+
+void					System::addUsedRules(Rule const & rule) {
+	Rules 				usedRules = getUsedRules();
+	usedRules.push_back(rule);
+	setUsedRules(usedRules);
+	return ;
+}
+
+bool					System::ruleUsed(Rule const & rule) {
+	Rules::const_iterator	rit  = getUsedRules().begin();
+	Rules::const_iterator	rite = getUsedRules().end();
+
+	for (; rit != rite; rit++) {
+		if (rule == *rit)
+			return true;
+	}
+
+	return false;
+}
+
+void					System::clearUsedRules(void) {
+	Rules 				usedRules = getUsedRules();
+	usedRules.clear();
+	setUsedRules(usedRules);
+	return ;
+}
+
 void					System::fillSystem(char const *) {
 	// std::ifstream 		in(filepath);
 	// std::string 		line;

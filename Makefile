@@ -19,17 +19,18 @@ SRC  = 	main.cpp\
 		annexe.cpp\
 		checkInput.cpp\
 		System.cpp\
+		SystemSolver.cpp\
+		SystemExceptions.cpp\
 		Rule.cpp\
 
 OBJ = $(SRC:.cpp=.o)
 
 DIROBJS = $(addprefix $(DIROBJ), $(OBJ))
 
-HEADERS =	-I  ./headers/\
-			-I ~/.brew/Cellar/boost/1.57.0/include/
+HEADERS =	-I  ./headers/
 
 CC = clang++
-CFLAGS= -Wall -Werror -Wextra
+CFLAGS= -Wall -Werror -Wextra -std=c++11
 
 all: $(NAME)
 

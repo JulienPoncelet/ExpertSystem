@@ -7,7 +7,6 @@
 # include <sstream>
 # include <map>
 # include <list>
-# include <regex>
 
 class System;
 class Rule;
@@ -19,6 +18,7 @@ enum eFact {
 typedef std::list<Rule> Rules;
 typedef std::map<char, eFact> Facts;
 typedef std::list<char> Queries;
+typedef std::list<std::string> StringList;
 
 # include <Rule.hpp>
 # include <System.hpp>
@@ -30,6 +30,9 @@ std::string				uncommentLine(std::string line);
 std::string 			trim(std::string s);
 std::string 			ltrim(std::string s);
 std::string				rtrim(std::string s);
+
+StringList 				&split(const std::string &s, char delim, StringList &elems);
+StringList 				split(const std::string &s, char delim);
 
 /* checkInput.cpp */
 

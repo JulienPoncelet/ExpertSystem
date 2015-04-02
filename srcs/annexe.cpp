@@ -19,3 +19,18 @@ std::string				rtrim(std::string s) {
         s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
         return s;
 }
+
+StringList 				&split(const std::string &s, char delim, StringList &elems) {
+    std::stringstream 	ss(s);
+    std::string 		item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+StringList 				split(const std::string &s, char delim) {
+    StringList 			elems;
+    split(s, delim, elems);
+    return elems;
+}
