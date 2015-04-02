@@ -11,8 +11,8 @@ std::string const 			System::toString(void) const {
 	Rules::const_iterator	rite = getRules().end();
 
 	for (; rit != rite; rit++) {
-		out << "\t\tIf: " << rit->first;
-		out << " - Then: " << rit->second << std::endl;
+		out << "\t\tIf: " << rit->getLeft();
+		out << " - Then: " << rit->getRight() << std::endl;
 	}
 
 	out << "\tFacts:" << std::endl;
@@ -41,36 +41,36 @@ std::ostream 			& operator<<(std::ostream & out, System const & rhs){
 	return out;
 }
 
-void					System::fillSystem(char const *filepath) {
-	std::ifstream 		in(filepath);
-	std::string 		line;
+void					System::fillSystem(char const *) {
+	// std::ifstream 		in(filepath);
+	// std::string 		line;
 
-	while (std::getline(in, line)) {
-	    std::istringstream iss(line);
-	    line = uncommentLine(line);
-	    if (line.size() == 0)
-	    	continue ;
-	    else if (line[0] == '=')
-	    	continue ;
-	    else if (line[0] == '?')
-	    	continue ;
-	    else
-	    	fillRules(line);
-	}
+	// while (std::getline(in, line)) {
+	//     std::istringstream iss(line);
+	//     line = uncommentLine(line);
+	//     if (line.size() == 0)
+	//     	continue ;
+	//     else if (line[0] == '=')
+	//     	continue ;
+	//     else if (line[0] == '?')
+	//     	continue ;
+	//     else
+	//     	fillRules(line);
+	// }
 
 	return ;
 }
 
-void					System::fillRules(std::string line) {
-	std::cout << line << std::endl;
-	std::regex 				avm_regex ("(!?[A-Z] ?[+^|] ?!?[A-Z])\\s*(<?=>)\\s*(!?[A-Z] ?[+^!|] ?!?[A-Z])");
-	std::smatch 			matches;
-	std::regex_match(line.cbegin(), line.cend(), matches, avm_regex);
+void					System::fillRules(std::string) {
+	// std::cout << line << std::endl;
+	// std::regex 				avm_regex ("(!?[A-Z] ?[+^|] ?!?[A-Z])\\s*(<?=>)\\s*(!?[A-Z] ?[+^!|] ?!?[A-Z])");
+	// std::smatch 			matches;
+	// std::regex_match(line.cbegin(), line.cend(), matches, avm_regex);
 
-	std::cout << "\t" << matches[0] << std::endl;
-	std::cout << "\t" << matches[1] << std::endl;
-	std::cout << "\t" << matches[2] << std::endl;
-	std::cout << "\t" << matches[3] << std::endl;
+	// std::cout << "\t" << matches[0] << std::endl;
+	// std::cout << "\t" << matches[1] << std::endl;
+	// std::cout << "\t" << matches[2] << std::endl;
+	// std::cout << "\t" << matches[3] << std::endl;
 
 	return ;
 }

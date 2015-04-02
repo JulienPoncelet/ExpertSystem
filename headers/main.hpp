@@ -10,15 +10,18 @@
 # include <regex>
 
 class System;
-class Expression;
+class Rule;
 
-typedef std::map<char, bool> Facts;
+enum eFact {
+	faux = 0, vrai, unsolved, undefined
+};
+
+typedef std::list<Rule> Rules;
+typedef std::pair<char, eFact> Fact;
+typedef std::list<Fact> Facts;
 typedef std::list<char> Queries;
 
-# include <Expression.hpp>
-
-typedef std::map<Expression, Expression> Rules;
-
+# include <Rule.hpp>
 # include <System.hpp>
 
 /* annexe.cpp */

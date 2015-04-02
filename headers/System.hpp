@@ -20,7 +20,6 @@ public:
 
 	void				fillSystem(char const *filepath);
 	void				fillRules(std::string line);
-	void				addRule(Expression const & lhs, Expression const & rhs);
 	void				resolve(void);
 	void				respond(void) const;
 

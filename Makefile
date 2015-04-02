@@ -19,7 +19,7 @@ SRC  = 	main.cpp\
 		annexe.cpp\
 		checkInput.cpp\
 		System.cpp\
-		Expression.cpp\
+		Rule.cpp\
 
 OBJ = $(SRC:.cpp=.o)
 
