@@ -13,7 +13,7 @@ class System;
 class Rule;
 
 enum eFact {
-	faux = 0, vrai, unsolved, undefined
+	faux = 0, vrai, undefined, unsolved
 };
 
 typedef std::list<Rule> Rules;
