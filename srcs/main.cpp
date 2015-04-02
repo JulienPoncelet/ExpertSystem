@@ -17,6 +17,9 @@ int					main(int ac, char const *av[]) {
 	rules.push_back(Rule("E + F", "!V"));
 	rules.push_back(Rule("A + B", "C"));
 	rules.push_back(Rule("C", "A + B"));
+	// rules.push_back(Rule("(A + B) | H", "V"));
+	rules.push_back(Rule("A + B", "a"));
+	rules.push_back(Rule("a | H", "V"));
 
 	facts.push_back(Fact('A', vrai));
 	facts.push_back(Fact('B', vrai));
