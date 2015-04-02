@@ -27,6 +27,7 @@ public:
 	Facts const & 		getFacts(void) const { return _facts; }
 	Queries const &		getQueries(void) const { return _queries; }
 
+	void				setRules(Rules const & rules) { _rules = rules; }
 	void				setFacts(Facts const & facts) { _facts = facts; }
 	void				setQueries(Queries const & queries) { _queries = queries; }
 

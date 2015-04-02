@@ -23,7 +23,7 @@ std::string const 			System::toString(void) const {
 	for (; fit != fite; fit++) {
 		out << "\t\tName: " << fit->first;
 		out << " - Value: " << fit->second;
-		out << " (0 = false, 1 = true, 2 = undertermined)" << std::endl;
+		out << " (0 = false, 1 = true, 2 = unsolved, 3 = undefined)" << std::endl;
 	}
 
 	out << "\033[0m";
