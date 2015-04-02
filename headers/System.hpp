@@ -8,10 +8,11 @@ private:
 	Rules				_rules;
 	Facts				_facts;
 	Queries				_queries;
+	char				_customRule;
 
 public:
 
-	System(void) {}
+	System(void) : _customRule('a') {}
 	System(System const & src) { *this = src; }
 	virtual ~System(void) {}
 
@@ -26,10 +27,12 @@ public:
 	Rules const & 		getRules(void) const { return _rules; }
 	Facts const & 		getFacts(void) const { return _facts; }
 	Queries const &		getQueries(void) const { return _queries; }
+	char 				getCustomRule(void) const { return _customRule; }
 
 	void				setRules(Rules const & rules) { _rules = rules; }
 	void				setFacts(Facts const & facts) { _facts = facts; }
 	void				setQueries(Queries const & queries) { _queries = queries; }
+	void				incrementCustomRule(void) { _customRule++; }
 
 };
 

@@ -31,6 +31,8 @@ std::string const 			System::toString(void) const {
 }
 
 System 					& System::operator=(System const & rhs) {
+	_customRule = rhs.getCustomRule();
+	setRules(rhs.getRules());
 	setFacts(rhs.getFacts());
 	setQueries(rhs.getQueries());
 	return *this;
