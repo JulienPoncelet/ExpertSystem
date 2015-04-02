@@ -17,8 +17,7 @@ enum eFact {
 };
 
 typedef std::list<Rule> Rules;
-typedef std::pair<char, eFact> Fact;
-typedef std::list<Fact> Facts;
+typedef std::map<char, eFact> Facts;
 typedef std::list<char> Queries;
 
 # include <Rule.hpp>

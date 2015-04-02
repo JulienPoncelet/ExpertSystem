@@ -21,19 +21,19 @@ int					main(int ac, char const *av[]) {
 	rules.push_back(Rule("A + B", "a"));
 	rules.push_back(Rule("a | H", "V"));
 
-	facts.push_back(Fact('A', vrai));
-	facts.push_back(Fact('B', vrai));
-	facts.push_back(Fact('G', vrai));
-	facts.push_back(Fact('C', unsolved));
-	facts.push_back(Fact('D', unsolved));
-	facts.push_back(Fact('E', unsolved));
-	facts.push_back(Fact('F', unsolved));
-	facts.push_back(Fact('H', unsolved));
-	facts.push_back(Fact('V', unsolved));
-	facts.push_back(Fact('W', unsolved));
-	facts.push_back(Fact('X', unsolved));
-	facts.push_back(Fact('Y', unsolved));
-	facts.push_back(Fact('Z', unsolved));
+	facts['A'] = vrai;
+	facts['B'] = vrai;
+	facts['G'] = vrai;
+	facts['C'] = unsolved;
+	facts['D'] = unsolved;
+	facts['E'] = unsolved;
+	facts['F'] = unsolved;
+	facts['H'] = unsolved;
+	facts['V'] = unsolved;
+	facts['W'] = unsolved;
+	facts['X'] = unsolved;
+	facts['Y'] = unsolved;
+	facts['Z'] = unsolved;
 
 	queries.push_back('G');
 	queries.push_back('V');
