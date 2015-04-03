@@ -26,7 +26,7 @@ OBJ = $(SRC:.cpp=.o)
 DIROBJS = $(addprefix $(DIROBJ), $(OBJ))
 
 HEADERS =	-I  ./headers/\
-			-I /nfs/zfs-student-3/users/2013_paris/vgedon/.brew/Cellar/boost/1.57.0/include/
+			-I ~/.brew/Cellar/boost/1.57.0/include/
 
 CC = clang++
 CFLAGS= -Wall -Werror -Wextra
