@@ -6,7 +6,18 @@
 # include <fstream>
 # include <sstream>
 # include <map>
+# include <vector>
+# include <complex>
 # include <list>
+
+# include <boost/config/warning_disable.hpp>
+# include <boost/spirit/include/qi.hpp>
+# include <boost/spirit/include/phoenix_core.hpp>
+# include <boost/spirit/include/phoenix_operator.hpp>
+# include <boost/spirit/include/phoenix_object.hpp>
+# include <boost/fusion/include/adapt_struct.hpp>
+# include <boost/fusion/include/io.hpp>
+# include <boost/bind.hpp>
 
 class System;
 class Rule;
@@ -25,11 +36,7 @@ typedef std::list<std::string> StringList;
 
 /* annexe.cpp */
 
-std::string				uncommentLine(std::string line);
-
-std::string 			trim(std::string s);
-std::string 			ltrim(std::string s);
-std::string				rtrim(std::string s);
+void			uncommentLine(std::string & line);
 
 StringList 				&split(const std::string &s, char delim, StringList &elems);
 StringList 				split(const std::string &s, char delim);

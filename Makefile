@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jponcele <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/01/23 13:17:44 by jponcele          #+#    #+#              #
-#    Updated: 2015/01/23 13:17:44 by jponcele         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = system
 
 DIRSRC = ./srcs/
@@ -27,7 +15,8 @@ OBJ = $(SRC:.cpp=.o)
 
 DIROBJS = $(addprefix $(DIROBJ), $(OBJ))
 
-HEADERS =	-I  ./headers/
+HEADERS =	-I  ./headers/\
+			-I ~/.brew/Cellar/boost/1.57.0/include/
 
 CC = clang++
 CFLAGS= -Wall -Werror -Wextra -std=c++11

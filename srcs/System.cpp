@@ -126,36 +126,139 @@ void					System::clearUsedRules(void) {
 	return ;
 }
 
-void					System::fillSystem(char const *) {
-	// std::ifstream 		in(filepath);
-	// std::string 		line;
+BOOST_FUSION_ADAPT_STRUCT(
+	rules::rule,
+	(std::string, left)
+	(char, rev)
+	(std::string, right)
+);
 
-	// while (std::getline(in, line)) {
-	//     std::istringstream iss(line);
-	//     line = uncommentLine(line);
-	//     if (line.size() == 0)
-	//     	continue ;
-	//     else if (line[0] == '=')
-	//     	continue ;
-	//     else if (line[0] == '?')
-	//     	continue ;
-	//     else
-	//     	fillRules(line);
-	// }
+BOOST_FUSION_ADAPT_STRUCT(
+	rules::parent,
+	(std::string, content)
+);
 
+namespace rules
+{
+	template <typename Iterator>
+	struct rules_parser : qi::grammar<Iterator, rule(), ascii::space_type>
+	{
+		rules_parser() : rules_parser::base_type(start)
+		{
+			using qi::lexeme;
+			using ascii::char_;
+			using boost::optional;
+
+			quoted_string %= lexeme[+(char_ - char_("=<"))];
+
+			start %= quoted_string 
+				>> -(char_('<')) >> "=>"
+				>>  quoted_string
+				;
+		}
+		qi::rule<Iterator, std::string(), ascii::space_type> quoted_string;
+		qi::rule<Iterator, rule(), ascii::space_type> start;
+	};
+
+	template <typename Iterator>
+	struct parents_parser : qi::grammar<Iterator, parent(), ascii::space_type>
+	{
+		parents_parser() : parents_parser::base_type(start)
+		{
+			using qi::lexeme;
+			using qi::lit;
+			using ascii::char_;
+			using boost::optional;
+
+			quoted_string %= lexeme[+(char_ - char_(")("))];
+
+			start %= lit('(')
+				>> quoted_string
+				>> ')'
+				>> *(char_)
+				;
+		}
+		qi::rule<Iterator, std::string(), ascii::space_type> quoted_string;
+		qi::rule<Iterator, parent(), ascii::space_type> start;
+	};
+}
+
+void 					System::addFact(char const & c) {
+	_facts[c] = unsolved;
+}
+
+void					System::fillSystem(char const *filepath) {
+	std::ifstream 		in(filepath);
+	std::string 		line;
+
+	using boost::spirit::ascii::space;
+	typedef std::string::const_iterator iterator_type;
+	typedef rules::rules_parser<iterator_type> rules_parser;
+	using boost::spirit::qi::parse;
+	using boost::spirit::qi::upper;
+
+	rules_parser g;
+	while (std::getline(in, line)) {
+		uncommentLine(line);
+		if (not line.empty()){
+			std::string::const_iterator iter = line.begin();
+			std::string::const_iterator end = line.end();
+			bool t = parse(iter, end, upper[boost::bind(&System::addFact, this, _1)]);
+			while(iter != end) {
+				iter++;
+				t = parse(iter, end, upper[boost::bind(&System::addFact, this, _1)]);
+			}
+			rules::rule emp;
+			emp.rev = 0;
+			iter = line.begin();
+			bool r = phrase_parse(iter, end, g, space, emp);
+
+			if (r && iter == end)
+				fillRules(emp);
+			else
+				std::cout << "not parsed : " << line << std::endl;
+		}
+	}
 	return ;
 }
 
-void					System::fillRules(std::string) {
-	// std::cout << line << std::endl;
-	// std::regex 				avm_regex ("(!?[A-Z] ?[+^|] ?!?[A-Z])\\s*(<?=>)\\s*(!?[A-Z] ?[+^!|] ?!?[A-Z])");
-	// std::smatch 			matches;
-	// std::regex_match(line.cbegin(), line.cend(), matches, avm_regex);
+template <typename T>
+void					display(T s) {
+	std::cout << boost::fusion::tuple_open('[');
+	std::cout << boost::fusion::tuple_close(']');
+	std::cout << boost::fusion::tuple_delimiter(",");
 
-	// std::cout << "\t" << matches[0] << std::endl;
-	// std::cout << "\t" << matches[1] << std::endl;
-	// std::cout << "\t" << matches[2] << std::endl;
-	// std::cout << "\t" << matches[3] << std::endl;
+	std::cout << boost::fusion::as_vector(s) << std::endl;
+}
 
+void					System::parent(std::string & rule) {
+	using boost::spirit::ascii::space;
+	typedef std::string::const_iterator iterator_type;
+	typedef rules::parents_parser<iterator_type> parents_parser;
+
+	parents_parser p;
+	rules::parent s;
+	std::string::const_iterator iter = rule.begin();
+	std::string::const_iterator end = rule.end();
+	bool r = phrase_parse(iter, end, p, space, s);
+	if (r && iter == end) {
+		// std::cout << "in parent: ";
+		// display(s);
+		_rules.push_back(Rule(s.content, std::string(1, _customRule)));
+		rule.replace(rule.find(s.content) - 1, s.content.size() + 2, std::string(1, _customRule));
+		addFact(_customRule);
+		incrementCustomRule();
+	}
+}
+
+void					System::fillRules(rules::rule & emp) {
+	// display(emp);
+	if (emp.left.find("(") != std::string::npos)
+		parent(emp.left);
+	if (emp.right.find("(") != std::string::npos)
+		parent(emp.right);
+	_rules.push_back(Rule(emp.left, emp.right));
+	if (emp.rev)
+		_rules.push_back(Rule(emp.right, emp.left));
 	return ;
 }

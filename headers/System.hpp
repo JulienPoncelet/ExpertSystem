@@ -1,6 +1,24 @@
 #ifndef System_HPP
 # define System_HPP
 
+namespace rules
+{
+	namespace qi = boost::spirit::qi;
+	namespace ascii = boost::spirit::ascii;
+
+	struct rule
+	{
+		std::string left;
+		char rev;
+		std::string right;
+	};
+	
+	struct parent
+	{
+		std::string content;
+	};
+}
+
 class System {
 
 private:
@@ -45,7 +63,9 @@ public:
 	bool				ruleUsed(Rule const & rule);
 	void				clearUsedRules(void);
 	void				fillSystem(char const *filepath);
-	void				fillRules(std::string line);
+	void				fillRules(rules::rule & emp);
+	void				parent(std::string & rule);
+	void				resolve(void);
 	// void				respond(void) const;
 
 	Rules const & 		getRules(void) const { return _rules; }
@@ -60,6 +80,7 @@ public:
 	void				incrementCustomRule(void) { _customRule++; }
 	void				setUsedRules(Rules const & rules) { _usedRules = rules; }
 	void				addUsedRules(Rule const & rule);
+	void				addFact(char const & c);
 
 	// SystemSolver.cpp
 
