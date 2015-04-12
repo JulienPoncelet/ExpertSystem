@@ -85,12 +85,15 @@ public:
 	// SystemSolver.cpp
 
 	void				solve(void);
-	void				solveFact(char fact, eFact oldState);
-	eFact				solveRule(Rule rule, char fact);
+	void				solveFact(char fact);
+	void				solveRule(Rule rule, char fact);
 	eFact				evaluateLeft(std::string lhs);
-	eFact				tryRight(std::string rhs, char fact, eFact wanted);
 	std::string::iterator 	subLeft(std::string::iterator it, eFact & currentState, char ope);
-	std::string::iterator 	subRight(std::string::iterator it, eFact & currentState, char fact, eFact wanted, char ope);
+	RightMap 			generateSolution(std::string rhs);
+	eFact				evaluateRight(std::string lhs);
+	std::string::iterator 	subRight(std::string::iterator it, eFact & currentState, char ope);
+	Facts 				solutionsToFacts(std::string rhs, RightMap solutions);
+
 };
 
 std::ostream 			& operator<<(std::ostream & out, System const & rhs);

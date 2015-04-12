@@ -66,7 +66,16 @@ void					System::updateState(char fact, eFact newState) {
 					break ;
 			}
 			break ;
-		default :
+		case undefined :
+			switch (newState) {
+				case unsolved :
+					break ;
+				default :
+					facts[fact] = newState;
+					break ;
+			}
+			break ;
+		case unsolved :
 			facts[fact] = newState;
 			break ;
 	}
