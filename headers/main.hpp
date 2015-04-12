@@ -30,6 +30,8 @@ typedef std::list<Rule> Rules;
 typedef std::map<char, eFact> Facts;
 typedef std::list<char> Queries;
 typedef std::list<std::string> StringList;
+typedef std::map<std::string, eFact> RightMap;
+typedef std::list<char> CharList;
 
 # include <Rule.hpp>
 # include <System.hpp>
