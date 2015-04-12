@@ -184,7 +184,8 @@ namespace rules
 }
 
 void 					System::addFact(char const & c) {
-	_facts[c] = unsolved;
+	if (not _facts[c] and _facts[c] != unsolved)
+		_facts[c] = unsolved;
 }
 
 void					System::fillSystem(char const *filepath) {
@@ -215,8 +216,15 @@ void					System::fillSystem(char const *filepath) {
 
 			if (r && iter == end)
 				fillRules(emp);
-			else
-				std::cout << "not parsed : " << line << std::endl;
+			else {
+				if (line[0] == '=') {
+					for (size_t i = 1; i < line.size(); ++i)
+						_facts[line[i]] = vrai;
+				} else if (line[0] == '?') {
+					for (size_t i = 1; i < line.size(); ++i)
+						_queries.push_back(line[i]);
+				}
+			}
 		}
 	}
 	return ;

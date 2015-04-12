@@ -9,6 +9,6 @@ void			uncommentLine(std::string & line) {
 		line.erase(line.find(" "), 1);
 	}
 	while (line.find("	") != std::string::npos){
-		line.erase(line.find(" "), 1);
+		line.erase(line.find("	"), 1);
 	}
 }
