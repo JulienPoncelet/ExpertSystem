@@ -255,7 +255,7 @@ void					System::parent(std::string & rule) {
 
 	parents_parser p;
 	rules::parent s;
-	std::string::const_iterator iter = rule.begin();
+	std::string::const_iterator iter = rule.begin() + rule.find("(");
 	std::string::const_iterator end = rule.end();
 	bool r = phrase_parse(iter, end, p, space, s);
 	if (r && iter == end) {
@@ -269,11 +269,12 @@ void					System::parent(std::string & rule) {
 }
 
 void					System::fillRules(rules::rule & emp) {
-	// display(emp);
-	if (emp.left.find("(") != std::string::npos)
+	while (emp.left.find("(") != std::string::npos){
 		parent(emp.left);
-	if (emp.right.find("(") != std::string::npos)
+	}
+	while (emp.right.find("(") != std::string::npos){
 		parent(emp.right);
+	}
 	_rules.push_back(Rule(emp.left, emp.right));
 	if (emp.rev)
 		_rules.push_back(Rule(emp.right, emp.left));
