@@ -1,15 +1,14 @@
 #include <main.hpp>
 
 int					main(int ac, char const *av[]) {
-	System 			sys;
+	System 			* sys = new System;
 	Rules			usedRules;
 
 	try {
-		sys.fillSystem(checkInput(--ac, ++av));
-		sys.setUsedRules(usedRules);
-		std::cout << sys << std::endl;
-		sys.solve();
-		std::cout << sys << std::endl;
+		sys->fillSystem(checkInput(--ac, ++av, sys));
+		sys->setUsedRules(usedRules);
+		sys->solve();
+		sys->printSoluce();
 	}
 	catch (std::exception & e) {
 		std::cerr << e.what() << std::endl;

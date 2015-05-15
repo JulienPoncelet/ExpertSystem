@@ -279,3 +279,23 @@ void					System::fillRules(rules::rule & emp) {
 		_rules.push_back(Rule(emp.right, emp.left));
 	return ;
 }
+
+void					System::printSoluce(void) const {
+	Facts 				facts = getFacts();
+	Queries::const_iterator	qit  = getQueries().begin();
+	Queries::const_iterator	qite = getQueries().end();
+
+	if (getVerbose())
+		std::cout << *this << std::endl;
+	else {
+		std::cout << "\033[36m";
+		for (; qit != qite; qit++) {
+			std::cout << "Fact: " << *qit;
+			std::cout << " - Value: " << facts[*qit];
+			std::cout << " (0 = false, 1 = true, 2 = undefined, 3 = unsolved)" << std::endl;
+		}
+		std::cout << "\033[0m";
+	}
+
+	return ;
+}

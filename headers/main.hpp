@@ -45,6 +45,6 @@ StringList 				split(const std::string &s, char delim);
 
 /* checkInput.cpp */
 
-char const * checkInput(int ac, char const * av[]);
+char const * checkInput(int ac, char const * av[], System * sys);
 
 #endif /* MAIN_HPP */

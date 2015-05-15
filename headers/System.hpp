@@ -23,6 +23,7 @@ class System {
 
 private:
 
+	bool				_verbose;
 	Rules				_rules;
 	Facts				_facts;
 	Queries				_queries;
@@ -66,14 +67,16 @@ public:
 	void				fillRules(rules::rule & emp);
 	void				parent(std::string & rule);
 	void				resolve(void);
-	// void				respond(void) const;
+	void				printSoluce(void) const;
 
+	bool  				getVerbose(void) const { return _verbose; }
 	Rules const & 		getRules(void) const { return _rules; }
 	Facts const & 		getFacts(void) const { return _facts; }
 	Queries const &		getQueries(void) const { return _queries; }
 	char 				getCustomRule(void) const { return _customRule; }
 	Rules const & 		getUsedRules(void) const { return _usedRules; }
 
+	void				setVerbose(bool verbose) { _verbose = verbose; }
 	void				setRules(Rules const & rules) { _rules = rules; }
 	void				setFacts(Facts const & facts) { _facts = facts; }
 	void				setQueries(Queries const & queries) { _queries = queries; }
